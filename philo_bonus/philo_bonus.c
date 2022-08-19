@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:28 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 17:01:56 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/19 18:00:22 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	free_data(t_data *data)
 	sem_close(data->print_sem);
 	sem_close(data->eat_sem);
 	free(data->philo);
+	free(data->pid);
 }
 
 int	main(int ac, char *av[])
