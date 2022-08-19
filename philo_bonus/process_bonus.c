@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:32 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 16:51:30 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/19 18:07:32 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ void	*do_philo(t_data *data, t_philo *philo)
 		exit(1);
 	if (philo->num % 2 != 0)
 		usleep((data->tte - 10) * 1000);
-	while (philo->eat_count < data->must_eat_count)
+	while (1)
 	{
 		eat_process(philo, data);
+		if (philo->eat_count < data->must_eat_count)
+			break ;
 		sleep_process(philo, data);
 		think_process(philo, data);
 	}
