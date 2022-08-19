@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:36 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 17:01:52 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/19 17:14:30 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,15 @@ int	ft_error(void)
 {
 	write(2, "error\n", 6);
 	return (1);
+}
+
+void	kill_pids(t_data *data, int pid_num)
+{
+	int	i;
+
+	i = -1;
+	sem_wait(data->check_sem);
+	while (++i < pid_num)
+		kill(data->pid[i], SIGKILL);
+	sem_post(data->check_sem);
 }

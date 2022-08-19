@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:30 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 17:06:08 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/19 17:14:26 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,23 +91,12 @@ int	init_sem(t_data *data)
 	if (data->eat_sem == SEM_FAILED)
 		error = 1;
 	data->check_sem = sem_open("check_sem", O_CREAT, 0644, 1);
-	if (data->check_sem	== SEM_FAILED)
+	if (data->check_sem == SEM_FAILED)
 		error = 1;
 	data->print_sem = sem_open("print_sem", O_CREAT, 0644, 1);
 	if (data->print_sem == SEM_FAILED)
 		error = 1;
 	return (error);
-}
-
-void	kill_pids(t_data *data, int pid_num)
-{
-	int	i;
-
-	i = -1;
-	sem_wait(data->check_sem);
-	while (++i < pid_num)
-		kill(data->pid[i], SIGKILL);
-	sem_post(data->check_sem);
 }
 
 int	init_process(t_data *data)
