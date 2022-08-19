@@ -1,0 +1,45 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/08/19 14:24:40 by nheo              #+#    #+#              #
+#    Updated: 2022/08/19 16:12:58 by nheo             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = philo_bonus
+SRCS = philo_bonus.c \
+		ft_atoi_bonus.c \
+		init_bonus.c \
+		process_bonus.c \
+		util1_bonus.c \
+		util2_bonus.c
+
+HDRS = ./includes
+
+OBJS = $(SRCS:.c=.o)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
+
+all : $(NAME)
+
+%.o : %.c
+	cc $(CFLAGS) -c -o $@ $< -I $(HDRS)
+
+$(NAME) : $(OBJS)
+	cc $(CFLAGS) -o $@ $^
+
+clean :
+	rm -f $(OBJS)
+
+fclean : clean
+	rm -f $(NAME)
+
+re :
+	make fclean
+	make all
+
+.PHONY : clean fclean re all bonus
