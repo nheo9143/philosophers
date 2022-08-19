@@ -21,20 +21,23 @@ long	get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	ft_sleep(long wait_time)
+int	ft_sleep(long wait_time)
 {
 	long	start;
 	long	end;
 
 	start = get_time();
+	if (start < 0)
+		return (1);
 	end = start + wait_time;
 	while (start < end)
 	{
 		start = get_time();
 		if (start < 0)
-			return ;
+			return (1);
 		usleep(100);
 	}
+	return (0);
 }
 
 int	check_data(t_data *data)

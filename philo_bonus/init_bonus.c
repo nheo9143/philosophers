@@ -11,16 +11,11 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <sys/_types/_pid_t.h>
-#include <sys/fcntl.h>
-#include <sys/semaphore.h>
 
 int	init_data(t_data *data, char *av[], int ac)
 {
-	int	i;
 	int	error;
 
-	i = 0;
 	error = 0;
 	data->philo_num = ft_atoi(av[1]);
 	data->ttd = ft_atoi(av[2]);

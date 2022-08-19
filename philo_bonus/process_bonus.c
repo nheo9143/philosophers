@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <pthread.h>
-#include <stdlib.h>
-#include <sys/semaphore.h>
-#include <unistd.h>
 
 void	eat_process(t_philo *philo, t_data *data)
 {
@@ -74,7 +70,7 @@ void	*do_philo(t_data *data, t_philo *philo)
 	while (1)
 	{
 		eat_process(philo, data);
-		if (philo->eat_count < data->must_eat_count)
+		if (philo->eat_count >= data->must_eat_count)
 			break ;
 		sleep_process(philo, data);
 		think_process(philo, data);

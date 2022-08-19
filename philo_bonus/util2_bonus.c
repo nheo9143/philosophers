@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <sys/semaphore.h>
 
 void	print_result(t_philo *philo, t_data *data, char *str1, char *str2)
 {

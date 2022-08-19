@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <stdlib.h>
-#include <sys/semaphore.h>
-#include <sys/wait.h>
 
 void	free_data(t_data *data)
 {

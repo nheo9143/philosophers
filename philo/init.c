@@ -14,10 +14,8 @@
 
 int	init_data(t_data *data, char *av[], int ac)
 {
-	int	i;
 	int	error;
 
-	i = 0;
 	error = 0;
 	data->philo_num = ft_atoi(av[1]);
 	data->ttd = ft_atoi(av[2]);
@@ -54,13 +52,11 @@ int	init_philo(t_data *data)
 	{
 		data->philo[i].num = i + 1;
 		data->philo[i].data = data;
-		if (i % 2 == 0)
-			data->philo[i].status = EAT;
-		else
-			data->philo[i].status = SLEEP;
 		data->philo[i].eat_count = 0;
 		data->philo[i].left = i;
 		data->philo[i].last_eat_time = get_time();
+		if (data->philo[i].last_eat_time < 0)
+			return (1);
 		if (i + 1 < data->philo_num)
 			data->philo[i].right = i + 1;
 		else

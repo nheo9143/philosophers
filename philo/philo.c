@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 void	free_data(t_data *data)
 {
@@ -64,18 +63,15 @@ void	mornitering(t_data *data)
 			i = 0;
 		pthread_mutex_lock(&data->eat_count_mutex);
 		if (data->full_philos == data->philo_num)
-		{
-			pthread_mutex_unlock(&data->check_mutex);
 			break ;
-		}
-		else if (check_death(&data->philo[i], data) == 1)
+		if (check_death(&data->philo[i], data) == 1)
 		{
 			print_result(&data->philo[i], data, "is", "dead");
-			pthread_mutex_unlock(&data->eat_count_mutex);
 			break ;
 		}
 		pthread_mutex_unlock(&data->eat_count_mutex);
 	}
+	pthread_mutex_unlock(&data->eat_count_mutex);
 }
 
 int	main(int ac, char *av[])

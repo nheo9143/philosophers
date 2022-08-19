@@ -21,10 +21,6 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define EAT 0
-# define SLEEP 1
-# define THINK 2
-
 typedef struct s_philo
 {
 	int				num;
@@ -60,7 +56,7 @@ int		ft_error(void);
 void	print_status(t_philo *philo, t_data *data, char *str1, char *str2);
 void	print_result(t_philo *philo, t_data *data, char *str1, char *str2);
 int		check_data(t_data *data);
-void	ft_sleep(long wait_time);
+int		ft_sleep(long wait_time);
 long	get_time(void);
 void	*do_philo(void *param);
 int		init_data(t_data *data, char *av[], int ac);
