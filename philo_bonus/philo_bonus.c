@@ -6,11 +6,12 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:28 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 18:00:22 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/21 14:51:41 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <sys/wait.h>
 
 void	free_data(t_data *data)
 {
@@ -20,7 +21,7 @@ void	free_data(t_data *data)
 	i = -1;
 	while (++i < data->philo_num)
 	{
-		wait(&status);
+		waitpid(data->pid[i], &status, 0);
 		if (status == 0)
 			sem_post(data->check_sem);
 		else

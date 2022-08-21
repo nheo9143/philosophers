@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:32 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 18:07:32 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/21 14:45:40 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ void	*check_dead(void *param)
 
 void	*do_philo(t_data *data, t_philo *philo)
 {
+	philo->last_eat_time = get_time();
 	if (pthread_create(&philo->thread, NULL, &check_dead, philo) != 0)
 		exit(1);
-	if (philo->num % 2 != 0)
+	if (philo->num % 2 == 0)
 		usleep((data->tte - 10) * 1000);
 	while (1)
 	{

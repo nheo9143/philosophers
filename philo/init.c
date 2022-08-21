@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:30 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 14:40:33 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/21 14:13:00 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	init_philo(t_data *data)
 	while (!error && ++i < data->philo_num)
 	{
 		data->philo[i].num = i + 1;
+		data->philo[i].status = i % 2;
 		data->philo[i].data = data;
 		data->philo[i].eat_count = 0;
 		data->philo[i].left = i;

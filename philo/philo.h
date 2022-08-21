@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:38 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 14:25:43 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/21 14:11:37 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <sys/time.h>
+
+# define EAT 0
+# define SLEEP 1
+# define THINK 2
 
 typedef struct s_philo
 {

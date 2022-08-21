@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:38 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 17:06:34 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/21 14:42:01 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@
 typedef struct s_philo
 {
 	int				num;
-	int				left;
-	int				right;
-	int				status;
 	int				eat_count;
 	long			last_eat_time;
 	pthread_t		thread;

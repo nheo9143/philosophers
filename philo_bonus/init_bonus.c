@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:30 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 17:14:26 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/21 14:41:56 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int	init_philo(t_data *data)
 		data->philo[i].num = i + 1;
 		data->philo[i].data = data;
 		data->philo[i].eat_count = 0;
-		data->philo[i].left = i;
-		data->philo[i].last_eat_time = get_time();
 	}
 	return (error);
 }
