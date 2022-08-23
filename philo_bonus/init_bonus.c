@@ -51,6 +51,7 @@ int	init_philo(t_data *data)
 	while (!error && ++i < data->philo_num)
 	{
 		data->philo[i].num = i + 1;
+		data->philo[i].status = i % 2;
 		data->philo[i].data = data;
 		data->philo[i].eat_count = 0;
 	}

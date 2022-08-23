@@ -24,6 +24,7 @@ void	eat_process(t_philo *philo, t_data *data)
 	philo->last_eat_time = get_time();
 	sem_post(data->eat_sem);
 	ft_sleep(data->tte);
+	philo->status = SLEEP;
 	sem_post(data->forks);
 	sem_post(data->forks);
 }
@@ -32,11 +33,13 @@ void	sleep_process(t_philo *philo, t_data *data)
 {
 	print_status(philo, data, "is", "sleeping");
 	ft_sleep(data->tts);
+	philo->status = THINK;
 }
 
 void	think_process(t_philo *philo, t_data *data)
 {
 	print_status(philo, data, "is", "thinking");
+	philo->status = EAT;
 }
 
 void	*check_dead(void *param)
@@ -66,15 +69,18 @@ void	*do_philo(t_data *data, t_philo *philo)
 	philo->last_eat_time = get_time();
 	if (pthread_create(&philo->thread, NULL, &check_dead, philo) != 0)
 		exit(1);
-	if (philo->num % 2 == 0)
-		usleep((data->tte - 10) * 1000);
+	// if (philo->num % 2 == 0)
+	// 	usleep((data->tte - 10) * 1000);
 	while (1)
 	{
-		eat_process(philo, data);
+		if (philo->status == EAT)
+			eat_process(philo, data);
+		else if (philo->status == SLEEP)
+			sleep_process(philo, data);
+		else if (philo->status == THINK)
+			think_process(philo, data);
 		if (philo->eat_count >= data->must_eat_count)
 			break ;
-		sleep_process(philo, data);
-		think_process(philo, data);
 	}
 	exit (0);
 }

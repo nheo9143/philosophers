@@ -6,7 +6,7 @@
 #    By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/19 14:24:40 by nheo              #+#    #+#              #
-#    Updated: 2022/08/19 18:09:53 by nheo             ###   ########.fr        #
+#    Updated: 2022/08/23 14:55:23 by heonamjun        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS = philo_bonus.c \
 HDRS = ./includes
 
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g
 
 all : $(NAME)
 

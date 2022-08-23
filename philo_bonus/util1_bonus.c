@@ -33,7 +33,7 @@ void	ft_sleep(long wait_time)
 		start = get_time();
 		if (start < 0)
 			return ;
-		usleep(100);
+		// usleep(100);
 	}
 }
 

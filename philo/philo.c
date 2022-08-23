@@ -40,8 +40,8 @@ int	check_death(t_philo *philo, t_data *data)
 	long	now;
 
 	is_dead = 0;
-	now = get_time();
 	pthread_mutex_lock(&data->eat_mutex);
+	now = get_time();
 	if (now - philo->last_eat_time >= data->ttd)
 		is_dead = 1;
 	pthread_mutex_unlock(&data->eat_mutex);
@@ -52,7 +52,7 @@ int	check_death(t_philo *philo, t_data *data)
 	return (is_dead);
 }
 
-void	mornitering(t_data *data)
+void	monitering(t_data *data)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ void	mornitering(t_data *data)
 	while (1)
 	{
 		if (++i >= data->philo_num)
-			i = 0;
+			i -= data->philo_num;
 		pthread_mutex_lock(&data->eat_count_mutex);
 		if (data->full_philos == data->philo_num)
 			break ;
@@ -84,7 +84,7 @@ int	main(int ac, char *av[])
 		return (ft_error());
 	if (init_thread(&data))
 		return (ft_error());
-	mornitering(&data);
+	monitering(&data);
 	free_data(&data);
 	return (0);
 }

@@ -14,8 +14,6 @@
 # define PHILO_BONUS_H
 
 # include <semaphore.h>
-# include <sys/_pthread/_pthread_t.h>
-# include <sys/_types/_pid_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -23,10 +21,15 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define EAT 0
+# define SLEEP 1
+# define THINK 2
+
 typedef struct s_philo
 {
 	int				num;
 	int				eat_count;
+	int				status;
 	long			last_eat_time;
 	pthread_t		thread;
 	struct s_data	*data;

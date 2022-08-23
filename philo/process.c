@@ -19,12 +19,12 @@ void	eat_process(t_philo *philo, t_data *data)
 	pthread_mutex_lock(&data->forks[philo->right]);
 	print_status(philo, data, "has", "taken a fork");
 	print_status(philo, data, "is", "eating");
-	pthread_mutex_lock(&data->eat_count_mutex);
-	philo->eat_count++;
-	pthread_mutex_unlock(&data->eat_count_mutex);
 	pthread_mutex_lock(&data->eat_mutex);
 	philo->last_eat_time = get_time();
 	pthread_mutex_unlock(&data->eat_mutex);
+	pthread_mutex_lock(&data->eat_count_mutex);
+	philo->eat_count++;
+	pthread_mutex_unlock(&data->eat_count_mutex);
 	ft_sleep(data->tte);
 	philo->status = SLEEP;
 	pthread_mutex_unlock(&data->forks[philo->left]);
@@ -46,17 +46,10 @@ void	check_is_full(t_philo *philo, t_data *data)
 	pthread_mutex_unlock(&data->eat_count_mutex);
 }
 
-void	philo_process(t_philo *philo, t_data *data)
+void	think_process(t_philo *philo, t_data *data)
 {
-	if (philo->status == EAT)
-		eat_process(philo, data);
-	else if (philo->status == SLEEP)
-		sleep_process(philo, data);
-	else if (philo->status == THINK)
-	{
-		print_status(philo, data, "is", "thinking");
-		philo->status = EAT;
-	}
+	print_status(philo, data, "is", "thinking");
+	philo->status = EAT;
 }
 
 void	*do_philo(void *param)
@@ -72,7 +65,12 @@ void	*do_philo(void *param)
 		if (data->is_dead)
 			break ;
 		pthread_mutex_unlock(&data->check_mutex);
-		philo_process(philo, data);
+		if (philo->status == EAT)
+			eat_process(philo, data);
+		else if (philo->status == SLEEP)
+			sleep_process(philo, data);
+		else if (philo->status == THINK)
+			think_process(philo, data);
 		if (philo->eat_count >= data->must_eat_count)
 			break ;
 	}

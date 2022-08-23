@@ -13,8 +13,6 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <sys/_pthread/_pthread_mutex_t.h>
-# include <sys/_pthread/_pthread_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -60,7 +58,7 @@ int		ft_error(void);
 void	print_status(t_philo *philo, t_data *data, char *str1, char *str2);
 void	print_result(t_philo *philo, t_data *data, char *str1, char *str2);
 int		check_data(t_data *data);
-int		ft_sleep(long wait_time);
+void	ft_sleep(long wait_time);
 long	get_time(void);
 void	*do_philo(void *param);
 int		init_data(t_data *data, char *av[], int ac);

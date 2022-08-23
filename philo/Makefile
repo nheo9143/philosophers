@@ -6,7 +6,7 @@
 #    By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/19 14:24:40 by nheo              #+#    #+#              #
-#    Updated: 2022/08/19 20:30:57 by heonamjun        ###   ########.fr        #
+#    Updated: 2022/08/23 14:46:28 by heonamjun        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,13 @@ SRCS = philo.c \
 		util1.c \
 		util2.c
 
-HDRS = ./includes
-
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=thread
 
 all : $(NAME)
 
 %.o : %.c
-	cc $(CFLAGS) -c -o $@ $< -I $(HDRS)
+	cc $(CFLAGS) -c -o $@ $<
 
 $(NAME) : $(OBJS)
 	cc $(CFLAGS) -o $@ $^
