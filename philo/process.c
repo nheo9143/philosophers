@@ -14,17 +14,25 @@
 
 void	eat_process(t_philo *philo, t_data *data)
 {
-	pthread_mutex_lock(&data->forks[philo->left]);
-	print_status(philo, data, "has", "taken a fork");
-	pthread_mutex_lock(&data->forks[philo->right]);
-	print_status(philo, data, "has", "taken a fork");
+	if (philo->num % 2 == 0)
+	{
+		pthread_mutex_lock(&data->forks[philo->left]);
+		print_status(philo, data, "has", "taken a fork");
+		pthread_mutex_lock(&data->forks[philo->right]);
+		print_status(philo, data, "has", "taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(&data->forks[philo->right]);
+		print_status(philo, data, "has", "taken a fork");
+		pthread_mutex_lock(&data->forks[philo->left]);
+		print_status(philo, data, "has", "taken a fork");
+	}
 	print_status(philo, data, "is", "eating");
 	pthread_mutex_lock(&data->eat_mutex);
 	philo->last_eat_time = get_time();
 	pthread_mutex_unlock(&data->eat_mutex);
-	pthread_mutex_lock(&data->eat_count_mutex);
 	philo->eat_count++;
-	pthread_mutex_unlock(&data->eat_count_mutex);
 	ft_sleep(data->tte);
 	philo->status = SLEEP;
 	pthread_mutex_unlock(&data->forks[philo->left]);
@@ -61,6 +69,9 @@ void	*do_philo(void *param)
 	data = philo->data;
 	while (1)
 	{
+		if (data->must_eat_count >= 0
+			&& philo->eat_count >= data->must_eat_count)
+			break ;
 		pthread_mutex_lock(&data->check_mutex);
 		if (data->is_dead)
 			break ;
@@ -71,8 +82,6 @@ void	*do_philo(void *param)
 			sleep_process(philo, data);
 		else if (philo->status == THINK)
 			think_process(philo, data);
-		if (philo->eat_count >= data->must_eat_count)
-			break ;
 	}
 	pthread_mutex_unlock(&philo->data->check_mutex);
 	check_is_full(philo, data);

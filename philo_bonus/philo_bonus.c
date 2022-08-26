@@ -13,7 +13,7 @@
 #include "philo_bonus.h"
 #include <sys/wait.h>
 
-void	free_data(t_data *data)
+void	wait_process(t_data *data)
 {
 	int	i;
 	int	status;
@@ -21,12 +21,14 @@ void	free_data(t_data *data)
 	i = -1;
 	while (++i < data->philo_num)
 	{
-		waitpid(data->pid[i], &status, 0);
+		waitpid(-1, &status, 0);
 		if (status == 0)
-			sem_post(data->check_sem);
-		else
 		{
 			sem_post(data->check_sem);
+			sem_post(data->print_sem);
+		}
+		else
+		{
 			if (data->is_dead == 0)
 				print_result(&data->philo[i], data, "is", "dead");
 			data->is_dead = 1;
@@ -35,9 +37,17 @@ void	free_data(t_data *data)
 			break ;
 		}
 	}
+}
+
+void	free_data(t_data *data)
+{
 	sem_close(data->check_sem);
 	sem_close(data->print_sem);
 	sem_close(data->eat_sem);
+	sem_unlink("fork_sem");
+	sem_unlink("eat_sem");
+	sem_unlink("print_sem");
+	sem_unlink("check_sem");
 	free(data->philo);
 	free(data->pid);
 }
@@ -52,6 +62,7 @@ int	main(int ac, char *av[])
 		exit(1);
 	if (init_process(&data))
 		exit(1);
+	wait_process(&data);
 	free_data(&data);
 	return (0);
 }

@@ -24,7 +24,7 @@ int	init_data(t_data *data, char *av[], int ac)
 	if (ac == 6)
 		data->must_eat_count = ft_atoi(av[5]);
 	else
-		data->must_eat_count = 2147483647;
+		data->must_eat_count = -2;
 	data->is_dead = 0;
 	data->full_philos = 0;
 	if (check_data(data))
@@ -114,5 +114,8 @@ int	init_thread(t_data *data)
 		if (error != 0)
 			break ;
 	}
+	i = -1;
+	while (++i < data->philo_num)
+		pthread_detach(data->philo[i].thread);
 	return (error);
 }

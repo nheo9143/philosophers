@@ -16,19 +16,19 @@ void	print_result(t_philo *philo, t_data *data, char *str1, char *str2)
 {
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%ld %d %s %s\n", get_time() - data->time, philo->num, str1, str2);
-	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
 void	print_status(t_philo *philo, t_data *data, char *str1, char *str2)
 {
+	pthread_mutex_lock(&philo->data->print_mutex);
 	pthread_mutex_lock(&data->check_mutex);
-	if (data->is_dead)
+	if (data->is_dead == 1)
 	{
 		pthread_mutex_unlock(&data->check_mutex);
+		pthread_mutex_unlock(&data->print_mutex);
 		return ;
 	}
 	pthread_mutex_unlock(&data->check_mutex);
-	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%ld %d %s %s\n", get_time() - data->time, philo->num, str1, str2);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }

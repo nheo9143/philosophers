@@ -33,13 +33,13 @@ void	ft_sleep(long wait_time)
 		start = get_time();
 		if (start < 0)
 			return ;
-		// usleep(100);
+		usleep(100);
 	}
 }
 
 int	check_data(t_data *data)
 {
-	if (data->must_eat_count < 0 || data->ttd < 0 || data->tte < 0
+	if (data->must_eat_count == -1 || data->ttd < 0 || data->tte < 0
 		|| data->tts < 0 || data->philo_num < 0)
 		return (1);
 	return (0);

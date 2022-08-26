@@ -17,13 +17,6 @@ void	free_data(t_data *data)
 	int	i;
 
 	i = -1;
-	if (data->philo_num == 1)
-		pthread_detach(data->philo[i].thread);
-	else
-	{
-		while (++i < data->philo_num)
-			pthread_join(data->philo[i].thread, NULL);
-	}
 	while (++i < data->philo_num)
 		pthread_mutex_destroy(&data->forks[i]);
 	pthread_mutex_destroy(&data->eat_mutex);
@@ -40,12 +33,12 @@ int	check_death(t_philo *philo, t_data *data)
 	long	now;
 
 	is_dead = 0;
+	pthread_mutex_lock(&data->check_mutex);
 	pthread_mutex_lock(&data->eat_mutex);
 	now = get_time();
 	if (now - philo->last_eat_time >= data->ttd)
 		is_dead = 1;
 	pthread_mutex_unlock(&data->eat_mutex);
-	pthread_mutex_lock(&data->check_mutex);
 	if (is_dead)
 		data->is_dead = 1;
 	pthread_mutex_unlock(&data->check_mutex);
@@ -60,18 +53,22 @@ void	monitering(t_data *data)
 	while (1)
 	{
 		if (++i >= data->philo_num)
-			i -= data->philo_num;
+		{
+			i = 0;
+			usleep(1000);
+		}
 		pthread_mutex_lock(&data->eat_count_mutex);
 		if (data->full_philos == data->philo_num)
 			break ;
+		pthread_mutex_unlock(&data->eat_count_mutex);
 		if (check_death(&data->philo[i], data) == 1)
 		{
 			print_result(&data->philo[i], data, "is", "dead");
 			break ;
 		}
-		pthread_mutex_unlock(&data->eat_count_mutex);
 	}
 	pthread_mutex_unlock(&data->eat_count_mutex);
+	pthread_mutex_unlock(&data->print_mutex);
 }
 
 int	main(int ac, char *av[])
