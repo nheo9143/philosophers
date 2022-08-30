@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:30 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/21 14:41:56 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/29 13:40:15 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ int	init_sem(t_data *data)
 	int	error;
 
 	error = 0;
+	sem_unlink("fork_sem");
+	sem_unlink("eat_sem");
+	sem_unlink("print_sem");
+	sem_unlink("check_sem");
 	data->forks = sem_open("fork_sem", O_CREAT, 0644, data->philo_num);
 	if (data->forks == SEM_FAILED)
 		error = 1;

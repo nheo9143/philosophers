@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:32 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/21 14:27:49 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/29 14:09:04 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,10 @@
 
 void	eat_process(t_philo *philo, t_data *data)
 {
-	if (philo->num % 2 == 0)
-	{
-		pthread_mutex_lock(&data->forks[philo->left]);
-		print_status(philo, data, "has", "taken a fork");
-		pthread_mutex_lock(&data->forks[philo->right]);
-		print_status(philo, data, "has", "taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(&data->forks[philo->right]);
-		print_status(philo, data, "has", "taken a fork");
-		pthread_mutex_lock(&data->forks[philo->left]);
-		print_status(philo, data, "has", "taken a fork");
-	}
+	pthread_mutex_lock(&data->forks[philo->left]);
+	print_status(philo, data, "has", "taken a fork");
+	pthread_mutex_lock(&data->forks[philo->right]);
+	print_status(philo, data, "has", "taken a fork");
 	print_status(philo, data, "is", "eating");
 	pthread_mutex_lock(&data->eat_mutex);
 	philo->last_eat_time = get_time();

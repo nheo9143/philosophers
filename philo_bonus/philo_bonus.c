@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:28 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/21 14:51:41 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/30 12:50:31 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	wait_process(t_data *data)
 			data->is_dead = 1;
 			kill_pids(data, data->philo_num);
 			sem_post(data->print_sem);
-			break ;
 		}
 	}
 }

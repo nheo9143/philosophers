@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:30 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/21 14:13:00 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/29 14:13:55 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,5 @@ int	init_thread(t_data *data)
 		if (error != 0)
 			break ;
 	}
-	i = -1;
-	while (++i < data->philo_num)
-		pthread_detach(data->philo[i].thread);
 	return (error);
 }

@@ -6,7 +6,7 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:28 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 16:02:37 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/29 14:18:46 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	free_data(t_data *data)
 {
 	int	i;
 
+	i = -1;
+	while (++i < data->philo_num)
+		pthread_join(data->philo[i].thread, NULL);
 	i = -1;
 	while (++i < data->philo_num)
 		pthread_mutex_destroy(&data->forks[i]);
@@ -33,12 +36,12 @@ int	check_death(t_philo *philo, t_data *data)
 	long	now;
 
 	is_dead = 0;
-	pthread_mutex_lock(&data->check_mutex);
 	pthread_mutex_lock(&data->eat_mutex);
 	now = get_time();
 	if (now - philo->last_eat_time >= data->ttd)
 		is_dead = 1;
 	pthread_mutex_unlock(&data->eat_mutex);
+	pthread_mutex_lock(&data->check_mutex);
 	if (is_dead)
 		data->is_dead = 1;
 	pthread_mutex_unlock(&data->check_mutex);
@@ -55,7 +58,7 @@ void	monitering(t_data *data)
 		if (++i >= data->philo_num)
 		{
 			i = 0;
-			usleep(1000);
+			usleep(100);
 		}
 		pthread_mutex_lock(&data->eat_count_mutex);
 		if (data->full_philos == data->philo_num)

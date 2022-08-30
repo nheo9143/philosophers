@@ -6,11 +6,12 @@
 /*   By: nheo <nheo@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:24:36 by nheo              #+#    #+#             */
-/*   Updated: 2022/08/19 17:14:30 by nheo             ###   ########.fr       */
+/*   Updated: 2022/08/30 12:47:45 by nheo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <signal.h>
 
 void	print_result(t_philo *philo, t_data *data, char *str1, char *str2)
 {
@@ -44,6 +45,6 @@ void	kill_pids(t_data *data, int pid_num)
 
 	i = -1;
 	while (++i < pid_num)
-		kill(data->pid[i], SIGKILL);
+		kill(data->pid[i], SIGINT);
 	sem_post(data->check_sem);
 }
