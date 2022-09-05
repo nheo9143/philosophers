@@ -50,6 +50,7 @@ int	init_philo(t_data *data)
 		error = 1;
 	while (!error && ++i < data->philo_num)
 	{
+		data->philo[i].last_eat_time = get_time();
 		data->philo[i].num = i + 1;
 		data->philo[i].status = i % 2;
 		data->philo[i].data = data;

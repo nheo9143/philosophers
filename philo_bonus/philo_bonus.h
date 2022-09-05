@@ -32,6 +32,7 @@ typedef struct s_philo
 	int				status;
 	long			last_eat_time;
 	pthread_t		thread;
+	pthread_mutex_t	eat_mutex;
 	struct s_data	*data;
 }	t_philo;
 
@@ -49,7 +50,6 @@ typedef struct s_data
 	struct s_philo	*philo;
 	sem_t			*forks;
 	sem_t			*eat_sem;
-	sem_t			*eat_count_sem;
 	sem_t			*check_sem;
 	sem_t			*print_sem;
 }	t_data;

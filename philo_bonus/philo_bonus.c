@@ -22,18 +22,13 @@ void	wait_process(t_data *data)
 	while (++i < data->philo_num)
 	{
 		waitpid(-1, &status, 0);
-		if (status == 0)
+		if (status != 0)
 		{
+			kill_pids(data, data->philo_num);
+			usleep(10000);
 			sem_post(data->check_sem);
 			sem_post(data->print_sem);
-		}
-		else
-		{
-			if (data->is_dead == 0)
-				print_result(&data->philo[i], data, "is", "dead");
-			data->is_dead = 1;
-			kill_pids(data, data->philo_num);
-			sem_post(data->print_sem);
+			break ;
 		}
 	}
 }
